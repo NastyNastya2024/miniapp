@@ -1,46 +1,38 @@
 # LeadBot Mini App
 
-Telegram Mini App для **настроек конкретного проекта**: триггеры, шаблоны диалогов, чаты, персона бота.
+Настройки проекта (триггеры, чаты, персона бота) — в Telegram Mini App на **сервере AWS**.
 
-Платформенная админка LeadBot (аккаунт Telegram, рассылка, дашборд) остаётся на бэкенде.
+## URL миниаппа (без домена)
 
-## URL
-
-- GitHub Pages: `https://nastynastya2024.github.io/miniapp/?bot_id=1`
-- После переноса на AWS: поменяйте `API_BASE_URL` в `config.js`
-
-## Настройка
-
-### 1. Миниапп (`config.js`)
-
-```js
-window.MINIAPP_CONFIG = {
-  API_BASE_URL: "https://your-aws-domain.example.com",
-  DEFAULT_BOT_ID: null,
-  LOCALE: "ru",
-};
+```
+http://3.82.3.33:8000/miniapp/?bot_id=1
 ```
 
-### 2. Бэкенд LeadBot (`.env`)
+Миниапп и API на **одном адресе** — CORS не нужен.
+
+## BotFather
+
+В настройках бота → **Menu Button** / **Web App** укажите:
+
+```
+http://3.82.3.33:8000/miniapp/?bot_id=1
+```
+
+## Смена IP сервера
+
+Если IP изменился, обновите в `~/leadbot/.env` на сервере:
 
 ```env
-TELEGRAM_BOT_TOKEN=...          # токен бота из @BotFather
-MINIAPP_URL=https://your-miniapp-url/
-MINIAPP_ALLOWED_ORIGINS=https://your-miniapp-origin
-MINIAPP_DEV_MODE=false
+MINIAPP_URL=http://НОВЫЙ_IP:8000/miniapp/
+MINIAPP_ALLOWED_ORIGINS=http://НОВЫЙ_IP:8000
 ```
 
-### 3. BotFather
-
-Укажите URL миниаппа в настройках Web App бота, например:
-
-`https://nastynastya2024.github.io/miniapp/?bot_id=1`
+Затем: `docker compose -f docker-compose.yml -f docker-compose.server.yml up -d admin`
 
 ## Разделение
 
-| LeadBot Admin | Mini App |
+| LeadBot Admin (`:8000/login`) | Mini App (`:8000/miniapp/`) |
 |---|---|
-| Telegram-аккаунт | Настройки (персона, цели) |
-| Авто-вступление в чаты | Триггеры |
-| Рассылка / статистика | Шаблоны диалогов |
-| Платформа / тарифы | Чаты |
+| Telegram-аккаунт | Настройки бота |
+| Рассылка | Триггеры |
+| Платформа | Шаблоны, чаты |

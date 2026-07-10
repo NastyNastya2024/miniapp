@@ -25,16 +25,19 @@
   function apiBase() {
     const configured = (cfg.API_BASE_URL || "").trim().replace(/\/$/, "");
     if (configured) return configured;
-    // Co-hosted on leadbot domain → same origin (no CORS).
+    // Миниапп на сервере — API на том же origin (без CORS).
     if (!window.location.hostname.includes("github.io")) {
       return window.location.origin;
     }
-    // Пока DNS leadbot.bigautoduck.ru не на AWS — используйте nip.io или прямой URL миниаппа.
-    return "https://3-82-3-33.nip.io";
+    // GitHub Pages не подходит — нужен URL сервера в BotFather.
+    throw new Error(
+      "Используйте URL сервера в BotFather:\nhttp://3.82.3.33:8000/miniapp/?bot_id=1"
+    );
   }
 
   async function request(method, path, body) {
-    const base = apiBase();
+    let base;
+    try { base = apiBase(); } catch (e) { throw e; }
     const botId = getBotId();
     const headers = {
       "Content-Type": "application/json",
