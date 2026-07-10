@@ -11,6 +11,8 @@
       start: "запустить",
       stop: "остановить",
       noBotId: "Укажите bot_id в URL: ?bot_id=1",
+      apiError: "Не удалось загрузить настройки. Проверьте API_BASE_URL в config.js и что бэкенд задеплоен.",
+      pageTitle: "Настройки проекта",
       sectionSettings: "Настройки",
       sectionTriggers: "Триггеры",
       sectionTemplates: "Шаблоны диалогов",
@@ -57,6 +59,8 @@
       start: "start",
       stop: "stop",
       noBotId: "Set bot_id in URL: ?bot_id=1",
+      apiError: "Failed to load settings. Check API_BASE_URL in config.js and backend deployment.",
+      pageTitle: "Project settings",
       sectionSettings: "Settings",
       sectionTriggers: "Triggers",
       sectionTemplates: "Dialog templates",
@@ -133,7 +137,11 @@
     root.innerHTML = `
       <header class="app-header">
         <div class="app-logo">LB</div>
-        <h1 class="app-title">${esc(b.name)}${b.is_default ? `<span class="badge">${locale === "ru" ? "по умолчанию" : "default"}</span>` : ""}</h1>
+        <div>
+          <p class="app-kicker">LeadBot</p>
+          <h1 class="app-title">${esc(b.name)}${b.is_default ? `<span class="badge">${locale === "ru" ? "по умолчанию" : "default"}</span>` : ""}</h1>
+          <p class="app-subtitle">${t("pageTitle")}</p>
+        </div>
       </header>
 
       <details class="accordion" open>
@@ -396,8 +404,10 @@
       state = await MiniappApi.getBot();
       render();
     } catch (err) {
-      showError(err.message || t("error"));
-      root.innerHTML = `<div class="loading">${esc(err.message || t("error"))}</div>`;
+      const msg = err.message || t("error");
+      const hint = err.status ? t("apiError") : msg;
+      showError(hint);
+      root.innerHTML = `<div class="loading">${esc(hint)}</div>`;
     }
   }
 
