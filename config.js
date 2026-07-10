@@ -1,7 +1,7 @@
-// Настройки миниапп.
-// ВАРИАНТ 1 (рекомендуется): миниапп на том же домене, что API:
-//   https://leadbot.bigautoduck.ru/miniapp/?bot_id=1  →  API_BASE_URL: ""
-// ВАРИАНТ 2: GitHub Pages — нужен рабочий HTTPS API + CORS на бэкенде:
+// ВАРИАНТ 1 (рекомендуется): миниапп с AWS — в BotFather укажите:
+//   https://3-82-3-33.nip.io/miniapp/?bot_id=1
+//   (после настройки DNS: https://leadbot.bigautoduck.ru/miniapp/?bot_id=1)
+// ВАРИАНТ 2: GitHub Pages — API должен быть доступен по HTTPS (см. api.js fallback).
 window.MINIAPP_CONFIG = {
   API_BASE_URL: "",
 

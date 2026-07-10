@@ -29,8 +29,8 @@
     if (!window.location.hostname.includes("github.io")) {
       return window.location.origin;
     }
-    // GitHub Pages fallback until DNS/HTTPS на AWS настроены.
-    return "https://leadbot.bigautoduck.ru";
+    // Пока DNS leadbot.bigautoduck.ru не на AWS — используйте nip.io или прямой URL миниаппа.
+    return "https://3-82-3-33.nip.io";
   }
 
   async function request(method, path, body) {
