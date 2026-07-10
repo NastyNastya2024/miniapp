@@ -1,7 +1,9 @@
-// Настройки миниапп. При переносе проекта на AWS поменяйте API_BASE_URL.
+// Настройки миниапп.
+// ВАРИАНТ 1 (рекомендуется): миниапп на том же домене, что API:
+//   https://leadbot.bigautoduck.ru/miniapp/?bot_id=1  →  API_BASE_URL: ""
+// ВАРИАНТ 2: GitHub Pages — нужен рабочий HTTPS API + CORS на бэкенде:
 window.MINIAPP_CONFIG = {
-  // URL бэкенда LeadBot (AWS / свой домен)
-  API_BASE_URL: "https://leadbot.bigautoduck.ru",
+  API_BASE_URL: "",
 
   // ID бота по умолчанию (парсер-бот проекта)
   DEFAULT_BOT_ID: 1,

@@ -22,8 +22,19 @@
     return (tg && tg.initData) || "";
   }
 
+  function apiBase() {
+    const configured = (cfg.API_BASE_URL || "").trim().replace(/\/$/, "");
+    if (configured) return configured;
+    // Co-hosted on leadbot domain → same origin (no CORS).
+    if (!window.location.hostname.includes("github.io")) {
+      return window.location.origin;
+    }
+    // GitHub Pages fallback until DNS/HTTPS на AWS настроены.
+    return "https://leadbot.bigautoduck.ru";
+  }
+
   async function request(method, path, body) {
-    const base = (cfg.API_BASE_URL || "").replace(/\/$/, "");
+    const base = apiBase();
     const botId = getBotId();
     const headers = {
       "Content-Type": "application/json",
@@ -34,7 +45,17 @@
     const opts = { method, headers };
     if (body !== undefined) opts.body = JSON.stringify(body);
 
-    const res = await fetch(base + path, opts);
+    let res;
+    try {
+      res = await fetch(base + path, opts);
+    } catch (networkErr) {
+      const err = new Error(
+        "Не удалось подключиться к API (" + base + "). " +
+        "Проверьте DNS, HTTPS и что бэкенд задеплоен с /api/miniapp."
+      );
+      err.network = true;
+      throw err;
+    }
     const text = await res.text();
     let data = null;
     try { data = text ? JSON.parse(text) : null; } catch (_) { data = { detail: text }; }
