@@ -98,6 +98,31 @@
       aboutBotLead: "Парсер бот находит лидов в Telegram-чатах по триггерным словам и помогает быстро начать диалог.",
       aboutBotText1: "Подключите Telegram-аккаунт, укажите характеристики бота, добавьте чаты и триггеры — затем запустите рассылку.",
       aboutBotText2: "Когда в чате появляется сообщение с триггером, бот фиксирует совпадение на вкладке «Рассылка».",
+      faqSearchPlaceholder: "Поиск по FAQ…",
+      faqEmpty: "Ничего не найдено. Попробуйте другой запрос.",
+      faqWhyTitle: "Зачем этот бот?",
+      faqWhyLead: "LeadBot находит клиентов там, где они уже обсуждают ваш продукт — в Telegram-группах — и сам начинает тёплый диалог.",
+      faqWhyGroupCaption: "В группах люди спрашивают рекомендации, называют возраст, район и бюджет — это готовые лиды.",
+      faqWhyDialogCaption: "Бот пишет от лица вашего менеджера: приветствие, фото, выгоды, цены и следующий шаг — без ручной работы.",
+      faqAccountTitle: "Как добавить Telegram-аккаунт",
+      faqAccountLead: "Рассылка идёт с отдельного пользовательского аккаунта. Подключение — на вкладке «Бот» → «Telegram-аккаунт» в три шага.",
+      faqAccountStep1: "Введите номер телефона аккаунта для рассылки (он может отличаться от аккаунта, из которого вы открыли миниапп).",
+      faqAccountStep2: "Откройте Telegram на этом телефоне и введите код из чата «Telegram» (синяя галочка).",
+      faqAccountStep3: "Если включена 2FA — введите облачный пароль из Настройки → Конфиденциальность → Двухэтапная аутентификация.",
+      faqSettingsTitle: "Характеристики бота",
+      faqSettingsText: "На вкладке «Бот» опишите личность, цель диалога, продукт и контакты. Эти поля питают AI-ответы Claude Opus, чтобы бот говорил в тоне вашего бизнеса.",
+      faqTriggersTitle: "Триггеры",
+      faqTriggersText: "Ключевые слова и фразы, по которым бот ловит сообщения в чатах (например: «лагерь», «ищем курс»). Без триггеров рассылка не стартует.",
+      faqTemplatesTitle: "Шаблоны диалогов",
+      faqTemplatesText: "Необязательные заготовки сообщений. Можно не заполнять: для AI-диалогов достаточно характеристик бота.",
+      faqChatsTitle: "Чаты",
+      faqChatsText: "Telegram-группы и каналы для мониторинга. Добавьте чат вручную или через авто-join. Бот должен быть участником чата на подключённом аккаунте.",
+      faqMailingTitle: "Рассылка",
+      faqMailingText: "Вкладка «Рассылка»: запуск/остановка мониторинга, статистика и список совпадений. Когда в чате появляется триггер — совпадение попадает сюда.",
+      faqCabinetTitle: "Личный кабинет",
+      faqCabinetText: "Профиль Telegram, статус оплаты и контакты поддержки. Здесь же удобно смотреть, до какого срока активен доступ.",
+      faqPaymentTitle: "Оплата и пакеты диалогов",
+      faqPaymentText: "Кнопка «Пополнить баланс» открывает пакеты 100 / 500 / 1000 диалогов. Оплата через ЮKassa; после успешного платежа доступ продлевается автоматически.",
       topUpBalance: "Пополнить баланс",
       topUpTitle: "Пополнить баланс",
       topUpLead: "Оплата подписки и пополнение баланса.",
@@ -314,6 +339,31 @@
       aboutBotLead: "Parser bot finds leads in Telegram chats by trigger keywords and helps you start the conversation faster.",
       aboutBotText1: "Connect a Telegram account, fill in bot settings, add chats and triggers — then start mailing.",
       aboutBotText2: "When a chat message matches a trigger, the bot records it on the Mailing tab.",
+      faqSearchPlaceholder: "Search FAQ…",
+      faqEmpty: "Nothing found. Try another query.",
+      faqWhyTitle: "What is this bot for?",
+      faqWhyLead: "LeadBot finds customers where they already discuss your offer — in Telegram groups — and starts a warm dialog for you.",
+      faqWhyGroupCaption: "In groups people ask for recommendations and name age, area, and budget — ready-made leads.",
+      faqWhyDialogCaption: "The bot writes as your manager: greeting, photos, benefits, pricing, and a clear next step — without manual work.",
+      faqAccountTitle: "How to add a Telegram account",
+      faqAccountLead: "Mailing runs from a separate user account. Connect it on the Bot tab → Telegram account in three steps.",
+      faqAccountStep1: "Enter the mailing account phone number (it may differ from the account that opened the miniapp).",
+      faqAccountStep2: "Open Telegram on that phone and enter the code from the Telegram chat (blue checkmark).",
+      faqAccountStep3: "If 2FA is on, enter the cloud password from Settings → Privacy → Two-Step Verification.",
+      faqSettingsTitle: "Bot profile",
+      faqSettingsText: "On the Bot tab describe persona, dialog goal, product, and contacts. These fields power Claude Opus replies in your brand voice.",
+      faqTriggersTitle: "Triggers",
+      faqTriggersText: "Keywords and phrases the bot watches for in chats (e.g. “camp”, “looking for a course”). Mailing cannot start without triggers.",
+      faqTemplatesTitle: "Dialog templates",
+      faqTemplatesText: "Optional message templates. You can skip them: AI dialogs work from the bot profile alone.",
+      faqChatsTitle: "Chats",
+      faqChatsText: "Telegram groups and channels to monitor. Add chats manually or via auto-join. The connected account must be a member.",
+      faqMailingTitle: "Mailing",
+      faqMailingText: "Mailing tab: start/stop monitoring, stats, and match list. When a trigger hits a chat message, the match appears here.",
+      faqCabinetTitle: "Personal account",
+      faqCabinetText: "Telegram profile, payment status, and support contacts. Check how long access remains active.",
+      faqPaymentTitle: "Payments and dialog packs",
+      faqPaymentText: "“Top up balance” opens packs of 100 / 500 / 1000 dialogs. Pay via YooKassa; after a successful payment access renews automatically.",
       topUpBalance: "Top up balance",
       topUpTitle: "Top up balance",
       topUpLead: "Subscription payment and balance top-up.",
@@ -558,13 +608,169 @@
     document.body.classList.add("instr-modal-open");
   }
 
+  const FAQ_ITEMS = [
+    {
+      id: "why",
+      titleKey: "faqWhyTitle",
+      keywords: ["зачем", "что это", "лид", "лиды", "группа", "диалог", "why", "lead", "what"],
+      render: () => `
+        <p class="faq-item__lead">${esc(t("faqWhyLead"))}</p>
+        <figure class="faq-shot">
+          <img class="faq-shot__img" src="./img/faq/why-group.png" alt="">
+          <figcaption class="faq-shot__cap">${esc(t("faqWhyGroupCaption"))}</figcaption>
+        </figure>
+        <figure class="faq-shot">
+          <img class="faq-shot__img" src="./img/faq/why-dialog.png" alt="">
+          <figcaption class="faq-shot__cap">${esc(t("faqWhyDialogCaption"))}</figcaption>
+        </figure>`,
+    },
+    {
+      id: "account",
+      titleKey: "faqAccountTitle",
+      keywords: ["аккаунт", "телеграм", "телефон", "код", "2fa", "подключ", "account", "phone", "telegram"],
+      render: () => `
+        <p class="faq-item__lead">${esc(t("faqAccountLead"))}</p>
+        <ol class="instr-guide">
+          <li class="instr-guide__item">
+            <p class="instr-guide__text"><span class="instr-guide__num">1.</span> ${esc(t("faqAccountStep1"))}</p>
+            <img class="instr-guide__img" src="./img/instructions/phone-1.png" alt="">
+          </li>
+          <li class="instr-guide__item">
+            <p class="instr-guide__text"><span class="instr-guide__num">2.</span> ${esc(t("faqAccountStep2"))}</p>
+            <img class="instr-guide__img" src="./img/instructions/code-1.png" alt="">
+          </li>
+          <li class="instr-guide__item">
+            <p class="instr-guide__text"><span class="instr-guide__num">3.</span> ${esc(t("faqAccountStep3"))}</p>
+            <img class="instr-guide__img" src="./img/instructions/password-1.png" alt="">
+          </li>
+        </ol>`,
+    },
+    {
+      id: "settings",
+      titleKey: "faqSettingsTitle",
+      keywords: ["характеристик", "личность", "промпт", "настройк", "profile", "persona", "settings"],
+      render: () => `<p class="faq-item__text">${esc(t("faqSettingsText"))}</p>`,
+    },
+    {
+      id: "triggers",
+      titleKey: "faqTriggersTitle",
+      keywords: ["триггер", "ключев", "слова", "trigger", "keyword"],
+      render: () => `<p class="faq-item__text">${esc(t("faqTriggersText"))}</p>`,
+    },
+    {
+      id: "templates",
+      titleKey: "faqTemplatesTitle",
+      keywords: ["шаблон", "сообщен", "template", "message"],
+      render: () => `<p class="faq-item__text">${esc(t("faqTemplatesText"))}</p>`,
+    },
+    {
+      id: "chats",
+      titleKey: "faqChatsTitle",
+      keywords: ["чат", "групп", "канал", "авто", "join", "chat", "group"],
+      render: () => `<p class="faq-item__text">${esc(t("faqChatsText"))}</p>`,
+    },
+    {
+      id: "mailing",
+      titleKey: "faqMailingTitle",
+      keywords: ["рассылк", "монитор", "совпаден", "запуск", "mailing", "match", "start"],
+      render: () => `<p class="faq-item__text">${esc(t("faqMailingText"))}</p>`,
+    },
+    {
+      id: "cabinet",
+      titleKey: "faqCabinetTitle",
+      keywords: ["кабинет", "профиль", "поддержк", "cabinet", "profile", "support"],
+      render: () => `<p class="faq-item__text">${esc(t("faqCabinetText"))}</p>`,
+    },
+    {
+      id: "payment",
+      titleKey: "faqPaymentTitle",
+      keywords: ["оплат", "баланс", "пакет", "юkassa", "yookassa", "диалог", "pay", "payment", "top up"],
+      render: () => `<p class="faq-item__text">${esc(t("faqPaymentText"))}</p>`,
+    },
+  ];
+
+  let faqOpenId = "why";
+  let faqQuery = "";
+
+  function faqMatches(item, query) {
+    const q = (query || "").trim().toLowerCase();
+    if (!q) return true;
+    const title = String(t(item.titleKey) || "").toLowerCase();
+    const blob = `${title} ${(item.keywords || []).join(" ")}`.toLowerCase();
+    return blob.includes(q) || q.split(/\s+/).every((part) => !part || blob.includes(part));
+  }
+
+  function renderFaqListHtml() {
+    const items = FAQ_ITEMS.filter((item) => faqMatches(item, faqQuery));
+    if (!items.length) {
+      return `<p class="faq-empty">${esc(t("faqEmpty"))}</p>`;
+    }
+    return items.map((item) => {
+      const open = item.id === faqOpenId;
+      return `<div class="faq-item${open ? " faq-item--open" : ""}" data-faq-id="${esc(item.id)}">
+        <button type="button" class="faq-item__head" data-faq-toggle="${esc(item.id)}" aria-expanded="${open ? "true" : "false"}">
+          <span class="faq-item__title">${esc(t(item.titleKey))}</span>
+          <span class="faq-item__chev" aria-hidden="true"></span>
+        </button>
+        <div class="faq-item__body"${open ? "" : " hidden"}>
+          ${item.render()}
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  function paintFaqModalBody() {
+    const bodyEl = document.getElementById("instr-modal-body");
+    if (!bodyEl) return;
+    const list = bodyEl.querySelector("[data-faq-list]");
+    if (list) list.innerHTML = renderFaqListHtml();
+    bindFaqHandlers(bodyEl);
+  }
+
+  function bindFaqHandlers(rootEl) {
+    rootEl.querySelectorAll("[data-faq-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-faq-toggle");
+        faqOpenId = faqOpenId === id ? "" : id;
+        haptic("light");
+        paintFaqModalBody();
+      });
+    });
+  }
+
   function showAboutBotModal() {
-    openInfoModal(t("aboutBotTitle"), `
-      <div class="consent-modal">
-        <p class="consent-modal__lead">${esc(t("aboutBotLead"))}</p>
-        <p class="consent-modal__text">${esc(t("aboutBotText1"))}</p>
-        <p class="consent-modal__text">${esc(t("aboutBotText2"))}</p>
-      </div>`);
+    faqOpenId = "why";
+    faqQuery = "";
+    const modal = document.getElementById("instr-modal");
+    const titleEl = document.getElementById("instr-modal-title");
+    const bodyEl = document.getElementById("instr-modal-body");
+    if (!modal || !titleEl || !bodyEl) return;
+    titleEl.textContent = t("aboutBotTitle");
+    bodyEl.innerHTML = `
+      <div class="faq-modal">
+        <label class="faq-search">
+          <span class="faq-search__icon" aria-hidden="true">⌕</span>
+          <input type="search" class="faq-search__input" data-faq-search
+            placeholder="${esc(t("faqSearchPlaceholder"))}" value="" autocomplete="off">
+        </label>
+        <div class="faq-list" data-faq-list>${renderFaqListHtml()}</div>
+      </div>`;
+    const input = bodyEl.querySelector("[data-faq-search]");
+    if (input) {
+      input.addEventListener("input", () => {
+        faqQuery = input.value || "";
+        const openItem = FAQ_ITEMS.find((i) => i.id === faqOpenId);
+        if (openItem && !faqMatches(openItem, faqQuery)) {
+          const match = FAQ_ITEMS.find((item) => faqMatches(item, faqQuery));
+          faqOpenId = match ? match.id : "";
+        }
+        paintFaqModalBody();
+      });
+    }
+    bindFaqHandlers(bodyEl);
+    modal.classList.remove("instr-modal--hidden");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("instr-modal-open");
   }
 
   /* Premium paywall — packs by dialog count (thinking Opus pricing, RUB only) */
