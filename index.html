@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>LeadBot — настройки проекта</title>
-  <link rel="stylesheet" href="./css/app.css?v=20260715a">
+  <link rel="stylesheet" href="./css/app.css?v=20260715s">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     (function () {
@@ -32,6 +32,13 @@
       <div class="instr-modal__body" id="instr-modal-body"></div>
     </div>
   </div>
+  <div id="paywall-modal" class="paywall paywall--hidden" aria-hidden="true">
+    <div class="paywall__backdrop" data-close-paywall></div>
+    <div class="paywall__sheet" role="dialog" aria-modal="true" aria-labelledby="paywall-title">
+      <button type="button" class="paywall__close" data-close-paywall aria-label="Закрыть">×</button>
+      <div class="paywall__scroll" id="paywall-body"></div>
+    </div>
+  </div>
   <div id="success-modal" class="success-modal success-modal--hidden" aria-hidden="true">
     <div class="success-modal__backdrop" data-close-success></div>
     <div class="success-modal__panel" role="dialog" aria-modal="true">
@@ -41,7 +48,7 @@
       <button type="button" class="btn btn-accent btn-block" data-close-success id="success-modal-ok"></button>
     </div>
   </div>
-  <script src="./js/api.js?v=20260715a"></script>
-  <script src="./js/app.js?v=20260715a"></script>
+  <script src="./js/api.js?v=20260715s"></script>
+  <script src="./js/app.js?v=20260715s"></script>
 </body>
 </html>

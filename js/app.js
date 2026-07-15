@@ -102,6 +102,25 @@
       topUpTitle: "Пополнить баланс",
       topUpLead: "Оплата подписки и пополнение баланса.",
       topUpText: "Онлайн-оплата пока в подготовке. Напишите в поддержку — поможем продлить доступ.",
+      paywallTitle: "LeadBot Premium",
+      paywallSubtitle: "Покупайте пакеты диалогов Claude Opus — без привязки к сроку",
+      paywallRub: "₽ Рубли",
+      paywallStars: "Stars",
+      paywallDialogsLabel: "{n} диалогов",
+      paywallPerDialog: "{price} за диалог",
+      paywallBestValue: "Выгодно",
+      paywallFeatureDialogsTitle: "Пакет AI-диалогов",
+      paywallFeatureDialogsText: "Claude Opus с thinking — оплата за диалоги, без отдельного списания токенов",
+      paywallFeatureMailingTitle: "Рассылка без пауз",
+      paywallFeatureMailingText: "Мониторинг чатов и ответы по триггерам, пока хватает диалогов",
+      paywallFeatureSupportTitle: "Приоритетная поддержка",
+      paywallFeatureSupportText: "Поможем с подключением аккаунта, чатами и настройкой триггеров",
+      paywallCta: "Оплатить",
+      paywallFoot: "Пакет {n} диалогов · {amount}",
+      paywallPending: "Онлайн-оплата в подключении. Напишите в поддержку — активируем пакет вручную.",
+      paywallRedirect: "Переходим к оплате…",
+      paywallFailed: "Не удалось создать платёж. Попробуйте ещё раз или напишите в поддержку.",
+      paywallNotConfigured: "Оплата временно недоступна. Напишите в поддержку.",
       mailingNotReady: "Заполните все условия ниже, чтобы начать рассылку.",
       mailingGoToSettings: "Для подключения аккаунта и заполнения настроек перейдите на вкладку «Бот».",
       mailingNeedAccount: "Подключите Telegram-аккаунт",
@@ -299,6 +318,25 @@
       topUpTitle: "Top up balance",
       topUpLead: "Subscription payment and balance top-up.",
       topUpText: "Online payment is being prepared. Contact support — we will help extend your access.",
+      paywallTitle: "LeadBot Premium",
+      paywallSubtitle: "Buy Claude Opus dialog packs — no time limit",
+      paywallRub: "₽ Rubles",
+      paywallStars: "Stars",
+      paywallDialogsLabel: "{n} dialogs",
+      paywallPerDialog: "{price} per dialog",
+      paywallBestValue: "Best value",
+      paywallFeatureDialogsTitle: "AI dialog pack",
+      paywallFeatureDialogsText: "Claude Opus with thinking — pay per dialogs, no separate token billing",
+      paywallFeatureMailingTitle: "Uninterrupted mailing",
+      paywallFeatureMailingText: "Chat monitoring and trigger replies while dialogs remain",
+      paywallFeatureSupportTitle: "Priority support",
+      paywallFeatureSupportText: "Help with account setup, chats, and trigger configuration",
+      paywallCta: "Pay",
+      paywallFoot: "Pack of {n} dialogs · {amount}",
+      paywallPending: "Online payment is being connected. Contact support — we will activate the pack manually.",
+      paywallRedirect: "Redirecting to payment…",
+      paywallFailed: "Could not create payment. Try again or contact support.",
+      paywallNotConfigured: "Payments are temporarily unavailable. Contact support.",
       mailingNotReady: "Complete all requirements below to start mailing.",
       mailingGoToSettings: "To connect an account and fill in settings, go to the Bot tab.",
       mailingNeedAccount: "Connect a Telegram account",
@@ -529,12 +567,157 @@
       </div>`);
   }
 
+  /* Premium paywall — packs by dialog count (thinking Opus pricing, RUB only) */
+  const PAYWALL_PLANS = [
+    { id: "p100", dialogs: 100, price: 2400, unit: "₽", badge: null },
+    { id: "p500", dialogs: 500, price: 10000, unit: "₽", badge: null },
+    { id: "p1000", dialogs: 1000, price: 18000, unit: "₽", badge: "best" },
+  ];
+  let paywallPlan = "p100";
+
+  function formatPayAmount(amount, unit) {
+    if (unit === "₽") return `${amount.toLocaleString("ru-RU")} ₽`;
+    return `${amount.toLocaleString("ru-RU")} ${unit}`;
+  }
+
+  function closePaywall() {
+    const modal = document.getElementById("paywall-modal");
+    if (!modal) return;
+    modal.classList.add("paywall--hidden");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("paywall-open");
+    const tg = window.Telegram && window.Telegram.WebApp;
+    if (tg && tg.setHeaderColor) tg.setHeaderColor("#2d74fe");
+    if (tg && tg.setBackgroundColor) tg.setBackgroundColor("#ffffff");
+  }
+
+  function renderPaywallBody() {
+    const body = document.getElementById("paywall-body");
+    if (!body) return;
+    const packs = PAYWALL_PLANS;
+    const selected = packs.find((p) => p.id === paywallPlan) || packs[0];
+    const perDialog = Math.round(selected.price / selected.dialogs);
+    const showPrioritySupport = selected.id === "p1000";
+    const foot = t("paywallFoot")
+      .replace("{n}", String(selected.dialogs))
+      .replace("{amount}", formatPayAmount(selected.price, selected.unit));
+
+    const plansHtml = packs.map((p) => {
+      const active = p.id === selected.id ? " paywall__plan--active" : "";
+      const badge = p.badge === "best"
+        ? `<span class="paywall__plan-badge">${esc(t("paywallBestValue"))}</span>`
+        : "";
+      const label = t("paywallDialogsLabel").replace("{n}", String(p.dialogs));
+      return `<button type="button" class="paywall__plan${active}" data-paywall-plan="${esc(p.id)}">
+          <span class="paywall__plan-price">${esc(formatPayAmount(p.price, p.unit))}</span>
+          <span class="paywall__plan-period">${esc(label)}</span>
+          ${badge}
+        </button>`;
+    }).join("");
+
+    const supportFeatureHtml = showPrioritySupport ? `
+        <li class="paywall__feature">
+          <span class="paywall__feature-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 12.5l2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div>
+            <p class="paywall__feature-title">${esc(t("paywallFeatureSupportTitle"))}</p>
+            <p class="paywall__feature-text">${esc(t("paywallFeatureSupportText"))}</p>
+          </div>
+        </li>` : "";
+
+    body.innerHTML = `
+      <div class="paywall__hero">
+        <div class="paywall__badge" aria-hidden="true">
+          <svg class="paywall__badge-check" viewBox="0 0 24 24" fill="none">
+            <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 class="paywall__title" id="paywall-title">${esc(t("paywallTitle"))}</h2>
+        <p class="paywall__subtitle">${esc(t("paywallSubtitle"))}</p>
+      </div>
+
+      <div class="paywall__plans paywall__plans--3">
+        ${plansHtml}
+      </div>
+      <p class="paywall__per-dialog">${esc(t("paywallPerDialog").replace("{price}", formatPayAmount(perDialog, selected.unit)))}</p>
+
+      <ul class="paywall__features">
+        <li class="paywall__feature">
+          <span class="paywall__feature-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 4.9L20 9l-4 3.9.9 5.1L12 15.9 7.1 18l.9-5.1L4 9l5.6-1.1L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          <div>
+            <p class="paywall__feature-title">${esc(t("paywallFeatureDialogsTitle"))}</p>
+            <p class="paywall__feature-text">${esc(t("paywallFeatureDialogsText"))}</p>
+          </div>
+        </li>
+        <li class="paywall__feature">
+          <span class="paywall__feature-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h10M4 17h13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </span>
+          <div>
+            <p class="paywall__feature-title">${esc(t("paywallFeatureMailingTitle"))}</p>
+            <p class="paywall__feature-text">${esc(t("paywallFeatureMailingText"))}</p>
+          </div>
+        </li>
+        ${supportFeatureHtml}
+      </ul>
+
+      <button type="button" class="paywall__cta" data-paywall-cta>${esc(t("paywallCta"))}</button>
+      <p class="paywall__footnote">${esc(foot)}</p>
+    `;
+
+    body.querySelectorAll("[data-paywall-plan]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        paywallPlan = btn.getAttribute("data-paywall-plan") || "p100";
+        haptic("light");
+        renderPaywallBody();
+      });
+    });
+    const cta = body.querySelector("[data-paywall-cta]");
+    if (cta) {
+      cta.addEventListener("click", async () => {
+        haptic("medium");
+        if (cta.disabled) return;
+        cta.disabled = true;
+        const prev = cta.textContent;
+        cta.textContent = t("paywallRedirect");
+        try {
+          const res = await MiniappApi.createCheckout({ plan_id: paywallPlan || "p100" });
+          const url = res && res.confirmation_url;
+          if (!url) throw new Error(t("paywallFailed"));
+          closePaywall();
+          const tg = window.Telegram && window.Telegram.WebApp;
+          if (tg && typeof tg.openLink === "function") tg.openLink(url);
+          else window.location.assign(url);
+        } catch (err) {
+          haptic("error");
+          cta.disabled = false;
+          cta.textContent = prev;
+          const detail = (err && err.data && err.data.detail) || "";
+          if ((err && err.status === 503) || detail === "payment_not_configured") {
+            showError(t("paywallNotConfigured"));
+          } else {
+            showError((err && err.message) || t("paywallFailed"));
+          }
+        }
+      });
+    }
+  }
+
   function showTopUpModal() {
-    openInfoModal(t("topUpTitle"), `
-      <div class="consent-modal">
-        <p class="consent-modal__lead">${esc(t("topUpLead"))}</p>
-        <p class="consent-modal__text">${esc(t("topUpText"))}</p>
-      </div>`);
+    const modal = document.getElementById("paywall-modal");
+    if (!modal) return;
+    paywallPlan = "p100";
+    renderPaywallBody();
+    modal.classList.remove("paywall--hidden");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("paywall-open");
+    const tg = window.Telegram && window.Telegram.WebApp;
+    /* Match paywall so no blue strip under Telegram chrome */
+    if (tg && tg.setHeaderColor) tg.setHeaderColor("#0b1f44");
+    if (tg && tg.setBackgroundColor) tg.setBackgroundColor("#050d1c");
   }
 
   function renderPageTopAction(label, dataAttr) {
@@ -1547,6 +1730,13 @@
     });
     document.querySelectorAll("[data-close-success]").forEach((el) => {
       el.addEventListener("click", closeSuccessModal);
+    });
+    document.querySelectorAll("[data-close-paywall]").forEach((el) => {
+      el.addEventListener("click", closePaywall);
+    });
+    document.addEventListener("keydown", (ev) => {
+      if (ev.key !== "Escape") return;
+      closePaywall();
     });
 
     const tg = window.Telegram && window.Telegram.WebApp;

@@ -93,6 +93,7 @@
     enableAutoJoin: (payload) => request("POST", "/api/miniapp/bot/auto-join/enable", payload),
     disableAutoJoin: () => request("POST", "/api/miniapp/bot/auto-join/disable"),
     getMe: () => request("GET", "/api/miniapp/me"),
+    createCheckout: (payload) => request("POST", "/api/miniapp/billing/checkout", payload),
     createMailing: () => request("POST", "/api/miniapp/bot/mailing"),
     startMailingRun: () => request("POST", "/api/miniapp/bot/mailing/runs/start"),
     stopMailingRun: () => request("POST", "/api/miniapp/bot/mailing/runs/stop"),
