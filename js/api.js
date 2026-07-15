@@ -31,7 +31,7 @@
     }
     // GitHub Pages не подходит — нужен URL сервера в BotFather.
     throw new Error(
-      "Используйте URL сервера в BotFather:\nhttp://3.82.3.33:8000/miniapp/?bot_id=1"
+      "Используйте HTTPS URL в BotFather:\nhttps://3-82-3-33.nip.io/miniapp/?bot_id=1"
     );
   }
 
@@ -74,7 +74,7 @@
 
   window.MiniappApi = {
     getBotId,
-    getBot: () => request("GET", "/api/miniapp/bot"),
+    getBot: (status) => request("GET", "/api/miniapp/bot" + (status ? `?status=${encodeURIComponent(status)}` : "")),
     saveSettings: (payload) => request("PUT", "/api/miniapp/bot/settings", payload),
     createTrigger: (payload) => request("POST", "/api/miniapp/bot/triggers", payload),
     detachTrigger: (id) => request("POST", `/api/miniapp/bot/triggers/${id}/detach`),
@@ -85,5 +85,16 @@
     listChats: () => request("GET", "/api/miniapp/chats"),
     createChat: (payload) => request("POST", "/api/miniapp/chats", payload),
     toggleChat: (id) => request("POST", `/api/miniapp/chats/${id}/toggle`),
+    startAccountSetup: (payload) => request("POST", "/api/miniapp/bot/account/setup/start", payload),
+    submitAccountCode: (payload) => request("POST", "/api/miniapp/bot/account/setup/code", payload),
+    submitAccountPassword: (payload) => request("POST", "/api/miniapp/bot/account/setup/password", payload),
+    cancelAccountSetup: () => request("POST", "/api/miniapp/bot/account/setup/cancel"),
+    disableAccount: (id) => request("POST", `/api/miniapp/bot/account/${id}/disable`),
+    enableAutoJoin: (payload) => request("POST", "/api/miniapp/bot/auto-join/enable", payload),
+    disableAutoJoin: () => request("POST", "/api/miniapp/bot/auto-join/disable"),
+    getMe: () => request("GET", "/api/miniapp/me"),
+    createMailing: () => request("POST", "/api/miniapp/bot/mailing"),
+    startMailingRun: () => request("POST", "/api/miniapp/bot/mailing/runs/start"),
+    stopMailingRun: () => request("POST", "/api/miniapp/bot/mailing/runs/stop"),
   };
 })();

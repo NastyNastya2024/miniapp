@@ -2,19 +2,46 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>LeadBot — настройки проекта</title>
-  <link rel="stylesheet" href="./css/app.css">
+  <link rel="stylesheet" href="./css/app.css?v=20260715a">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    (function () {
+      var tg = window.Telegram && window.Telegram.WebApp;
+      if (!tg) return;
+      if (tg.setHeaderColor) tg.setHeaderColor("#2d74fe");
+      if (tg.setBackgroundColor) tg.setBackgroundColor("#ffffff");
+    })();
+  </script>
   <script src="./config.js"></script>
 </head>
 <body>
   <div class="app">
     <div id="global-error" class="alert alert--danger alert--hidden" role="alert"></div>
-    <div id="app" class="loading">Загрузка…</div>
+    <div id="app"><div class="loading">Загрузка…</div></div>
   </div>
-  <script src="./js/api.js"></script>
-  <script src="./js/app.js"></script>
+  <div id="instr-modal" class="instr-modal instr-modal--hidden" aria-hidden="true">
+    <div class="instr-modal__backdrop" data-close-instr></div>
+    <div class="instr-modal__panel" role="dialog" aria-modal="true">
+      <div class="instr-modal__header">
+        <h2 class="instr-modal__title" id="instr-modal-title"></h2>
+        <button type="button" class="instr-modal__close" data-close-instr aria-label="Закрыть">×</button>
+      </div>
+      <div class="instr-modal__body" id="instr-modal-body"></div>
+    </div>
+  </div>
+  <div id="success-modal" class="success-modal success-modal--hidden" aria-hidden="true">
+    <div class="success-modal__backdrop" data-close-success></div>
+    <div class="success-modal__panel" role="dialog" aria-modal="true">
+      <img class="success-modal__logo" src="./img/logo.png?v=20260711" width="72" height="72" alt="">
+      <h2 class="success-modal__title" id="success-modal-title"></h2>
+      <p class="success-modal__text" id="success-modal-text"></p>
+      <button type="button" class="btn btn-accent btn-block" data-close-success id="success-modal-ok"></button>
+    </div>
+  </div>
+  <script src="./js/api.js?v=20260715a"></script>
+  <script src="./js/app.js?v=20260715a"></script>
 </body>
 </html>
